@@ -1,19 +1,16 @@
 #Requires AutoHotkey 2.0+
 #SingleInstance Force
 
-#include "C:\Users\Public\Documents\AutoHotkey\Lib\_JXON.ahk"
-#include "C:\Users\Public\Documents\AutoHotkey\Lib\CenterMyGUIOnActiveWindow.ahk"
-
+;#include "C:\Users\Public\AutoHotkey\Lib\_JXON.ahk"
+;#include "C:\Users\Public\AutoHotkey\Lib\CenterMyGUIOnActiveWindow.ahk"
 
 ; NOTE: if you edit this file you'll need to rerun it to
 ; get your changes made to the autokey window.
-; Win-Alt-H
-#!H::Help()
+helpFile := "C:\Users\Public\AutoHotkey\Lib\Help.json"
 
 global listViewObj
 global closeWindowCtrl
 
-helpFile := "C:\Users\Public\Documents\AutoHotkey\Lib\Help.json"
 Help()
 {
   global listViewObj
@@ -23,13 +20,13 @@ Help()
   ; next time you open this hotkey.
   jsonText := FileRead(helpFile)
   helpObjs := jxon_load(&jsonText)
-	global myGui := setupGui(helpObjs)
-  myGui.Show()
+	global myHelpGui := setupHelpGui(helpObjs)
+  myHelpGui.Show()
 
-  CenterMyGUIOnActiveWindow(myGui, helpWndH)
+  CenterMyGUIOnActiveWindow(myHelpGui, helpWndH)
 }
 
-setupGui(helpObjsArray)
+setupHelpGui(helpObjsArray)
 {
   aGui := Gui("+Resize")
   listViewObj := 0
@@ -38,7 +35,7 @@ setupGui(helpObjsArray)
 	aGui.BackColor := 0xCCCCCC
 	aGui.MarginX := 5, aGui.MarginY := 5
   aGui.Add("Text", "h20", "'+' = Shift, '^' = Control, '!' = Alt, '#' = Win")
-  aGui.OnEvent('Escape', closeWindow)
+  aGui.OnEvent('Escape', closeHelpWindow)
   global listViewObj := aGui.Add("ListView", "r10 w700 Grid BackgroundCCCCCC", ["Key Combo","App", "Description"])
   For each, helpObj in helpObjsArray
   {
@@ -52,29 +49,24 @@ setupGui(helpObjsArray)
 
   ; +default is so Return selects this button.
   global closeWindowCtrl := aGui.Add("Button", "h30 center BackgroundD8D8D8 +default", "OK")
-  closeWindowCtrl.OnEvent('Click', closeWindow)
-  aGui.OnEvent('Size', resizeGui)
+  closeWindowCtrl.OnEvent('Click', closeHelpWindow)
+  aGui.OnEvent('Size', resizeHelpGui)
 
   return aGui
 }
-closeWindow(*)
+closeHelpWindow(*)
 {
-  myGui.Hide()
+  myHelpGui.Hide()
 }
 
-resizeGui(aGui, minMax, w, h)
+resizeHelpGui(aGui, minMax, w, h)
 {
   listViewObj.Move , , w-(2*aGui.MarginX), h-80
   closeWindowCtrl.Move , h-35
 }
 
-; Replace this with whatever editor you prefer to use.
-editor := "C:\Program Files\Vim\vim91\gvim.exe"
-; Replace this with wherever you put your help file.
-helpFile := "C:\Users\Public\Documents\AutoHotkey\Lib\Help.json"
+editor := getAHKEnvValue("editor", "notepad.exe")
 
-; Control-Win-Alt-H
-^#!H::EditHelp()
 EditHelp()
 {
   ; This is just to ensure files with spaces in name/path are edited.

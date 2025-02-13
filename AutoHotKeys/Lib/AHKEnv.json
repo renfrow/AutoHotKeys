@@ -1,0 +1,5 @@
+[
+{"_comment":"NOTE: You MUST have a ',' after each line EXCEPT the last one!"},
+{"key":"editor", "value":"\"C:/Program Files/Vim/vim91/gvim.exe\""},
+{"key":"envFile", "value":"\"C:/Users/Public/Documents/AutoHotkey/Lib/AHKEnv.json\""}
+]

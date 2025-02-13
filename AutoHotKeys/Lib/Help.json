@@ -1,0 +1,7 @@
+[
+{"_comment":"'+' = Shift, '^' = Control, '!' = Alt, '#' = Win"},
+{"_comment":"NOTE: You MUST have a ',' after each line EXCEPT the last one!"},
+{"key":"#!H", "app":"Any", "help":"Open this Help window"},
+{"key":"^#!H", "app":"Any", "help":"Edit this Help file"},
+{"key":"#X", "app":"Admin Tools", "help":"Pops up a menu of Admin Tools-T selects Task Manager"}
+]

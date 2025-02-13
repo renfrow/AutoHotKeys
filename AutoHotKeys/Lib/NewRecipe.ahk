@@ -3,10 +3,10 @@
 ; This hotkey is ONLY active if the active
 ; window is a File Explorer window.
 #HotIf WinActive('ahk_class CabinetWClass')
+NewRecipeDirectory := "Z:\public_html\Hobbies\Cooking\"
 
-^!+N::
+NewRecipe()
 {
-  cookingDirectory := "Z:\public_html\Hobbies\Cooking\"
   recipeName := ""
   recipeFileName := ""
   IB := InputBox("New Recipe Name", "Enter the name of the Recipe", "h100")
@@ -14,12 +14,11 @@
   {
     recipeName := IB.Value
     recipeFileName := camelize(recipeName)
-    createRecipeFile(cookingDirectory recipeFileName ".html")
-    fileVal := ' `"' . cookingDirectory . recipeFileName . ".html" . '`"'
-    Run "C:\Program Files\Vim\vim91\gvim.exe" fileVal
+    createRecipeFile(NewRecipeDirectory recipeFileName ".html")
+    fileVal := ' `"' . NewRecipeDirectory . recipeFileName . ".html" . '`"'
+    Run editor fileVal
   }
 }
-Return
 
 createRecipeFile(fileName)
 {
@@ -30,8 +29,8 @@ createRecipeFile(fileName)
 }
 
 ; Turn to 'MyFirstPersonalBicycle'
-;  'My first personal bicycle'
-makeTitle(inputString)
+;  'My First Personal Bicycle'
+makeNewRecipeTitle(inputString)
 {
   outputString := ""
   firstChar := true
@@ -47,29 +46,4 @@ makeTitle(inputString)
   }
   return outputString
 }
-
-; Turn 'my first personal bicycle' to
-; 'MyFirstPersonalBicycle'
-camelize(inputString)
-{
-  outputString := ""
-  hadSpace := true
-  Loop parse inputString
-  {
-    if A_LoopField == " "
-    {
-      hadSpace := true
-    }
-    else
-    {
-      if hadSpace
-        outputString .= StrUpper(A_LoopField)
-      else
-        outputString .= A_LoopField
-      hadSpace := false
-    }
-  }
-  return outputString
-}
-
 #HotIf
