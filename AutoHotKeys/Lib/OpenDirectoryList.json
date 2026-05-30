@@ -1,0 +1,18 @@
+[
+{"_comment":"NOTE: You MUST have a ',' after each line EXCEPT the last one!"},
+{"_comment":"NOTE2: You may only have ONE default, more than that will only get the last one."},
+{"_comment":"NOTE3: You MUST have '\\' for each path separator, or use '/'!"},
+{"_comment":"NOTE4: If the directory you want to open is the top level of a remote volume add a comment to say what that remote volume represents."},
+{"directoryName":"C:\\Users\\Public\\AutoHotkey\\Lib"},
+{"directoryName":"C:\\ReallyTempEmptyEveryDay\\tmpWallpapers"},
+{"directoryName":"U:\\Gaming\\Fallout4"},
+{"directoryName":"D:\\GOG Games\\Fallout 4 GOTY\\Data"},
+{"directoryName":"U:\\", "_comment":"misc.docs"},
+{"directoryName":"V:\\", "_comment":"misc.pics"},
+{"directoryName":"W:\\", "_comment":"misc.src"},
+{"directoryName":"Z:\\LocalSource2"},
+{"directoryName":"Z:\\LocalSource2\\AI\\Claude-AI"},
+{"directoryName":"Z:\\public_html"},
+{"directoryName":"Z:\\public_html\\resources"},
+{"directoryName":"Z:\\public_html\\Hobbies\\Cooking"}
+]

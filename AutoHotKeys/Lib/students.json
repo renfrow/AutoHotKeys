@@ -1,6 +1,10 @@
 [
 {"_comment":"NOTE: You MUST have a ',' after each line EXCEPT the last one!"},
 {"_comment":"NOTE2: You may only have ONE default, more than that will only get the last one."},
-{"sessionName":"GooberDude"},
-{"sessionName":"miniserver", "default": "true"}
+{"name":"Cosmo"},
+{"name":"Renfrow"},
+{"name":"Fermyon"},
+{"name":"Basil"},
+{"name":"GooberDude"},
+{"name":"Cronkite", "default": "true"}
 ]

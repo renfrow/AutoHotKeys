@@ -2,20 +2,7 @@
 
 #HotIf WinActive('ahk_exe idea64.exe')
 
-; C:\Users\Public\ is a folder available
-; to and writable by all users on a windows computer.
-; You will need to create AutoHotkey\Lib\ and put
-; any libraries you use into it. Use an include
-; for every library you use.
-;#include "C:\Users\Public\AutoHotkey\Lib\_JXON.ahk"
-;#include "C:\Users\Public\AutoHotkey\Lib\ResizableMsgBox.ahk"
-
-; Replace '^#!C' with whatever key you want to use,
-; prepending '+' for shift, '^' for control, '!' for
-; alt, and '#' for win. Thus '+#PgDn' will activate
-; with shift-win-PgDn. The modifiers may be in
-; any order. Use the following for the key names:
-; https://www.autohotkey.com/docs/v2/KeyList.htm
+; Written by Thomas R. Kimpton, ahk@gooberdude.com
 
 ; This hotkey reads the libFile and displays a
 ; list of libraries. Double clicking on a library
@@ -36,7 +23,7 @@ CopyIntelliJProjectJarToLib()
   ; next time you open this hotkey.
   jsonText := FileRead(libsCopyIntelliJProjectJarToLibFile)
   libObjs := []
-  libObjs := jxon_load(&jsonText)
+  libObjs := jsongo.Parse(jsonText)
 	global myCopyIntelliJProjectJarToLibGui := setupCopyIntelliJProjectJarToLibGui(libObjs)
   myCopyIntelliJProjectJarToLibGui.Show()
 }

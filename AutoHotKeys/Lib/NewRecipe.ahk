@@ -1,10 +1,14 @@
 ﻿#Requires AutoHotkey v2.0
 
-; This hotkey is ONLY active if the active
-; window is a File Explorer window.
-#HotIf WinActive('ahk_class CabinetWClass')
+; Written by Thomas R. Kimpton, ahk@gooberdude.com
+
 NewRecipeDirectory := "Z:\public_html\Hobbies\Cooking\"
 
+; I do it this way because I have a macro(cpr), on my Linux
+; server, that creates a new recipe from a recipe template
+; file, and rebuilds a web page that contains links to all
+; the recipes. I COULD do it all Windows side, but, I don't
+; want to spend the time to rewrite the web page rebuild code.
 NewRecipe()
 {
   recipeName := ""
@@ -12,38 +16,29 @@ NewRecipe()
   IB := InputBox("New Recipe Name", "Enter the name of the Recipe", "h100")
   if IB.Result != "Cancel"
   {
-    recipeName := IB.Value
-    recipeFileName := camelize(recipeName)
-    createRecipeFile(NewRecipeDirectory recipeFileName ".html")
-    fileVal := ' `"' . NewRecipeDirectory . recipeFileName . ".html" . '`"'
-    Run editor fileVal
-  }
-}
-
-createRecipeFile(fileName)
-{
-  if !FileExist(fileName)
-    FileCopy("Z:\public_html\Hobbies\Cooking\@recipeTemplate.html", fileName)
-  else
-    MsgBox fileName " already exists!"
-}
-
-; Turn to 'MyFirstPersonalBicycle'
-;  'My First Personal Bicycle'
-makeNewRecipeTitle(inputString)
-{
-  outputString := ""
-  firstChar := true
-  Loop parse inputString
-  {
-    if !firstChar
+    PWB := InputBox("Password", "Password:", "password h100")
+    if PWB.Result != "Cancel"
     {
-      if IsUpper(A_LoopField)
-        outputString .= " "
+      recipeName := IB.Value
+      recipeFileName := camelize(recipeName)
+      RunLoadDefaultPuttySession()
+      Sleep 500
+      Send PWB.Value
+      Send "{Enter}"
+      Sleep 1000
+      ; cdc is an alias to change directories to the Cooking directory.
+      Send "cdc{Enter}"
+      Sleep 100
+      fileVal := ' `"' . recipeFileName . '`"'
+      ; cpr is an alias to copy the recipe template file to the new file.
+      Send "cpr " fileVal "{Enter}"
+      Sleep 100
+      ; x is an alias for logout
+      Send "x{Enter}"
+      Sleep 1000
+      fileVal := ' `"' . NewRecipeDirectory . recipeFileName . ".html" . '`"'
+      Run editor fileVal
     }
-    outputString .= A_LoopField
-    firstChar := false
   }
-  return outputString
 }
-#HotIf
+

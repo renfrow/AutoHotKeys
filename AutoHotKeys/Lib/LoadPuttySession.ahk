@@ -1,6 +1,7 @@
 #Requires AutoHotkey 2.0+
 
-;#include "C:\Users\Public\AutoHotkey\Lib\_JXON.ahk"
+; Written by Thomas R. Kimpton, ahk@gooberdude.com
+
 ;#include "C:\Users\Public\AutoHotkey\Lib\BringProcessPIDToFront.ahk"
 
 ; NOTE: if you edit this file you'll need to rerun it to
@@ -11,7 +12,7 @@ LoadPuttySessionFile := "C:\Users\Public\AutoHotkey\Lib\Putty.json"
 ; next time you open this hotkey.
 jsonText := FileRead(LoadPuttySessionFile)
 defaultLoadPuttySessionSession := -1
-puttyLoadPuttySessionObjs := jxon_load(&jsonText)
+puttyLoadPuttySessionObjs := jsongo.Parse(jsonText)
 puttyLoadPuttySessionObjsArray := Array()
 For each, puttyLoadPuttySessionObj in puttyLoadPuttySessionObjs
 {
@@ -33,24 +34,21 @@ global closeLoadPuttySessionWindowCtrl
 LoadPuttySession()
 {
 
-  global myLoadPuttySessionGui := Gui("+Resize")
+  global myLoadPuttySessionGui := Gui("+Resize +Minsize300x201")
   closeLoadPuttySessionWindowCtrl := 0
 	myLoadPuttySessionGui.SetFont("s12 c660066", "Segoe UI")
 	myLoadPuttySessionGui.BackColor := 0xCCCCCC
 	myLoadPuttySessionGui.MarginX := 5, myLoadPuttySessionGui.MarginY := 5
-  myLoadPuttySessionMenu := Menu()
 
-  myLoadPuttySessionMenuBar := MenuBar()
-  myLoadPuttySessionMenuBar.Add("&Sessions", myLoadPuttySessionMenu)
-  myLoadPuttySessionGui.MenuBar := myLoadPuttySessionMenuBar
   myLoadPuttySessionGui.OnEvent('Escape', closeLoadPuttySessionWindow)
   For each, puttyLoadPuttySessionObj in puttyLoadPuttySessionObjsArray
   {
-    myLoadPuttySessionMenu.Add(puttyLoadPuttySessionObj["sessionName"], menuHandler)
+    local aLoadPuttySessionWindowCtrl := myLoadPuttySessionGui.Add("Button", "h30 center BackgroundD8D8D8 ", puttyLoadPuttySessionObj["sessionName"])
+    aLoadPuttySessionWindowCtrl.OnEvent('Click', loadPuttyButtonHandler)
   }
 
   ; +default is so Return selects this button.
-  global closeLoadPuttySessionWindowCtrl := myLoadPuttySessionGui.Add("Button", "h30 center BackgroundD8D8D8 +default", "OK")
+  global closeLoadPuttySessionWindowCtrl := myLoadPuttySessionGui.Add("Button", "h30 BackgroundD8D8D8 +default", "OK")
   closeLoadPuttySessionWindowCtrl.OnEvent('Click', closeLoadPuttySessionWindow)
 
   myLoadPuttySessionGui.Show()
@@ -59,13 +57,24 @@ closeLoadPuttySessionWindow(*)
 {
   myLoadPuttySessionGui.Hide()
 }
-menuHandler(menuItemName, itemNum, thisMenu)
+loadPuttyButtonHandler(buttonObj, info)
 {
-  RunProcessInFront("putty.exe -load " puttyLoadPuttySessionObjsArray[itemNum]["sessionName"])
+  RunProcessInFront("putty.exe -load " buttonObj.Text)
   closeLoadPuttySessionWindow()
 }
 
+;menuHandler(menuItemName, itemNum, thisMenu)
+;{
+;  RunProcessInFront("putty.exe -load " puttyLoadPuttySessionObjsArray[itemNum]["sessionName"])
+;  closeLoadPuttySessionWindow()
+;}
 
+
+
+RunPutty()
+{
+  RunProcessInFront("putty.exe")
+}
 
 RunLoadDefaultPuttySession()
 {
@@ -76,8 +85,27 @@ RunLoadDefaultPuttySession()
 ; to build the menu.
 EditLoadPuttySession()
 {
-  ; This is just to ensure files with spaces in name/path are edited.
-  fileVal := ' `"' . LoadPuttySessionFile . '`"'
-  Run editor fileVal
+  EditAFile(LoadPuttySessionFile)
 }
 
+PuttyPaste()
+{
+  Send "+{Insert}"
+}
+
+PuttyCommand(host := "miniserver", command := "")
+{
+  PWB := InputBox("Password", "Password:", "password h100")
+  if PWB.Result != "Cancel"
+  {
+    RunProcessInFront("putty.exe -load " host)
+    Sleep 500
+    Send PWB.Value
+    Send "{Enter}"
+    Sleep 1000
+    
+    Send command
+    Send "{Enter}"
+    Sleep 500
+  }
+}

@@ -1,7 +1,8 @@
 ﻿#Requires AutoHotkey v2.0
 
+; Written by Thomas R. Kimpton, ahk@gooberdude.com
 
-; Center the clienGui on the active window(hwnd)
+; Center the clientGui on the active window(hwnd).
 ; MUST be called IMMEDIATELY after clientGui.Show()
 ; is called! Can't be called before, as the gui
 ; isn't built, yet, and can't be called later as

@@ -1,5 +1,9 @@
 [
 {"_comment":"NOTE: You MUST have a ',' after each line EXCEPT the last one!"},
+{"_comment":"NOTE: If your value uses Windows paths, you MUST replace backslashes with slashes!"},
 {"key":"editor", "value":"\"C:/Program Files/Vim/vim91/gvim.exe\""},
-{"key":"envFile", "value":"\"C:/Users/Public/Documents/AutoHotkey/Lib/AHKEnv.json\""}
+{"key":"bashShell", "value":"\"C:/Program Files/Git/git-bash.exe\""},
+{"key":"AHKMasterKeyFile", "value":"\"C:/Users/Public/AutoHotkey/HotKeyMaster.ahk\""},
+{"key":"graphicsViewer", "value":"C:/Program Files/IrfanView/i_view64.exe"},
+{"key":"envFile", "value":"\"C:/Users/Public/AutoHotkey/Lib/AHKEnv.json\""}
 ]

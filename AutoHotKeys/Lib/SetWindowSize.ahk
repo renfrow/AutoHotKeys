@@ -1,17 +1,13 @@
 ﻿#Requires AutoHotkey v2.0.11+
 
 
+; Written by Thomas R. Kimpton, ahk@gooberdude.com
+
 ;#include "C:\Users\Public\AutoHotkey\Lib\WinGetPosEx.ahk"
 ;#include "C:\Users\Public\AutoHotkey\Lib\WinMoveEx.ahk"
 ;#include "C:\Users\Public\AutoHotkey\Lib\WinGetActiveWindow.ahk"
 ;#include "C:\Users\Public\AutoHotkey\Lib\ColorButton.ahk"
 
-; Replace 'M' with whatever key you want to use,
-; prepending '+' for shift, '^' for control, '!' for
-; alt, and '#' for win. Thus '+#PgDn' will activate
-; with shift-win-PgDn. The modifiers may be in
-; any order. Use the following for the key names:
-; https://www.autohotkey.com/docs/v2/KeyList.htm
 SetWindowSizeGUI()
 {
   global SetWindowSizeWidth := 0
@@ -20,6 +16,7 @@ SetWindowSizeGUI()
   global SetWindowSizeY := 0
   global SetWindowSizehwnd := WinGetActiveWindow()
 
+  global clientWindowHwnd := WinActive("A")
   WinGetPosEx(&SetWindowSizeX, &SetWindowSizeY, &SetWindowSizeWidth, &SetWindowSizeHeight, SetWindowSizehwnd)
   global mySetWindowSizeGui := Gui()
 
@@ -41,24 +38,11 @@ SetWindowSizeGUI()
   mySetWindowSizeGui.OnEvent('Escape', (*) => cancelSetWindowSizeWindow())
   mySetWindowSizeGui.Title := "Move"
   mySetWindowSizeGui.Show("w320 ")
+  CenterMyGUIOnActiveWindow(mySetWindowSizeGui, clientWindowHwnd)
 }
 cancelSetWindowSizeWindow(*)
 {
   mySetWindowSizeGui.Hide()
-}
-
-global SetWindowSizeMovementAmount := 100
-
-; Move the front window by this(these) amount(s) in the
-; appropriate direction.
-moveSetWindowSizeWindow(vertical := 0, horizontal := 0)
-{
-  global SetWindowSizehwnd := WinGetActiveWindow()
-  WinGetPosEx(&SetWindowSizeX, &SetWindowSizeY, &SetWindowSizeWidth, &SetWindowSizeHeight, SetWindowSizehwnd)
-  ; If this moves the window off screen you can use Alt-Space-M
-  ; to move it back once you're done with whatever you needed
-  ; to do.
-  WinMoveEx(SetWindowSizeX+horizontal, SetWindowSizeY+vertical, SetWindowSizeWidth, SetWindowSizeHeight, SetWindowSizehwnd)
 }
 
 moveSetWindowSizeWindowInternal(*)

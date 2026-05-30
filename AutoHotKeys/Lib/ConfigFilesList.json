@@ -1,0 +1,11 @@
+[
+{"_comment":"NOTE: You MUST have a ',' after each line EXCEPT the last one!"},
+{"_comment":"NOTE2: You may only have ONE default, more than that will only get the last one."},
+{"configFileName":"HotKeyMaster", "configFilePath":"C:\\Users\\Public\\AutoHotkey\\HotKeyMaster.ahk"},
+{"configFileName":"AHKEnv", "configFilePath":"C:\\Users\\Public\\AutoHotkey\\Lib\\AHKEnv.json"},
+{"configFileName":"ConfigFilesList", "configFilePath":"C:\\Users\\Public\\AutoHotkey\\Lib\\ConfigFilesList.json"},
+{"configFileName":"GamesList", "configFilePath":"C:\\Users\\Public\\AutoHotkey\\Lib\\GamesList.json"},
+{"configFileName":"Help", "configFilePath":"C:\\Users\\Public\\AutoHotkey\\Lib\\Help.json"},
+{"configFileName":"OpenDirectory", "configFilePath":"C:\\Users\\Public\\AutoHotkey\\Lib\\OpenDirectoryList.json"},
+{"configFileName":"Putty", "configFilePath":"C:\\Users\\Public\\AutoHotkey\\Lib\\Putty.json"}
+]

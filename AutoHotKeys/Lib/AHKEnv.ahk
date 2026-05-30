@@ -1,14 +1,15 @@
 ﻿#Requires AutoHotkey v2.0
 
+; Written by Thomas R. Kimpton, ahk@gooberdude.com
+
 ; C:\Users\Public\ is a folder available
 ; to and writable by all users on a windows computer.
 ; You will need to create AutoHotkey\Lib\ and put
-;#include "C:\Users\Public\AutoHotkey\Lib\_JXON.ahk"
 ;#include "C:\Users\Public\AutoHotkey\Lib\Misc.ahk"
 
 envFile := "C:\Users\Public\AutoHotkey\Lib\AHKEnv.json"
 
-AHKEnv := Map()
+global AHKEnv := Map()
 reloadAHKEnv()
 
 
@@ -16,8 +17,8 @@ reloadAHKEnv()
 ; to run this.
 reloadAHKEnv()
 {
-  jsonText := FileRead(envFile)
-  envObjs := jxon_load(&jsonText)
+  local jsonText := FileRead(envFile)
+  local envObjs := jsongo.Parse(jsonText)
   For each, envObj in envObjs
   {
     if envObj.Has("key")
