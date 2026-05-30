@@ -18,5 +18,5 @@ functionality 'New+'. In C:\Users\Public\PowerToys\NewPlus
 there is a Templates folder that you simply drop your
 template file and it is made available in the right click
 menu 'New+'. I use a lot of
-[PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/)
+[PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/){target="_blank"}
 tools, check it out!
